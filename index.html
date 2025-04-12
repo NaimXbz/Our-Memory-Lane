@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story Begins</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            color: #fff;
+            background: linear-gradient(135deg, #1a0033, #330033, #4d0099);
+        }
+
+        #background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7);
+            transition: all 2s ease;
+            z-index: -2;
+            opacity: 0.85;
+        }
+
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(128, 0, 128, 0.5), rgba(75, 0, 130, 0.5), rgba(0, 0, 139, 0.5));
+            z-index: -1;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        #particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .welcome-text {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 3s ease forwards 1s;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.7), 0 0 25px rgba(138, 43, 226, 0.5);
+            background: linear-gradient(to right, #ff6b6b, #e83e8c, #6610f2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .welcome-subtext {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 3s ease forwards 2s;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .enter-button {
+            background: linear-gradient(45deg, #ff3366, #ff6b6b, #e83e8c);
+            border: none;
+            color: #fff;
+            padding: 1.2rem 3.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 2s ease forwards 3s;
+            box-shadow: 0 5px 15px rgba(232, 62, 140, 0.5), 0 0 20px rgba(255, 105, 180, 0.3);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .enter-button:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 8px 20px rgba(232, 62, 140, 0.7), 0 0 30px rgba(255, 105, 180, 0.5);
+        }
+
+        .enter-button:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            transition: all 0.6s;
+        }
+
+        .enter-button:hover:before {
+            left: 100%;
+        }
+
+        .timeline-container {
+            position: absolute;
+            bottom: 5%;
+            left: 10%;
+            width: 80%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards 4s;
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+        }
+
+        .timeline-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(to right, #ff3366, #ff6b6b, #e83e8c);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.7);
+        }
+
+        .timeline-handle {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translate(-50%, -50%);
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(to right, #e83e8c, #ff6b6b);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-handle:hover {
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        .timeline-date {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            background: linear-gradient(45deg, rgba(232, 62, 140, 0.9), rgba(138, 43, 226, 0.9));
+            padding: 6px 12px;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            font-weight: 600;
+            min-width: 120px;
+        }
+
+        .timeline-handle:hover .timeline-date {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        .timeline-marker {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-marker:hover {
+            transform: translateY(-50%) scale(1.5);
+        }
+
+        #music-control {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(232, 62, 140, 0.8), rgba(138, 43, 226, 0.8));
+            border: none;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards 5s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        #music-control:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards 5s;
+        }
+
+        .nav-button {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, rgba(232, 62, 140, 0.6), rgba(138, 43, 226, 0.6));
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, rgba(232, 62, 140, 0.8), rgba(138, 43, 226, 0.8));
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        #logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards 4.5s;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.7);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #logo span {
+            font-size: 1.5rem;
+            color: #ff6b6b;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0;
+            animation: floatHeart 20s linear infinite;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) scale(0.3) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) scale(1) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1));
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: float 15s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0.3);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at center, transparent 30%, rgba(138, 43, 226, 0.1) 70%);
+            z-index: -1;
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <img id="background" src="./pic6.jpg" alt="Our love story">
+    <div id="overlay"></div>
+    <div class="glow"></div>
+    <div id="particles-container"></div>
+
+    <div id="logo">
+        <span>♥</span> Forever Ours
+    </div>
+
+    <div class="nav-buttons">
+        <button class="nav-button">About Us</button>
+        <button class="nav-button">Gallery</button>
+        <button class="nav-button">Contact</button>
+    </div>
+
+    <div class="nav-buttons">
+        <a href="https://www.facebook.com/naimxbz.ac.bd" class="nav-button" target="_blank">About Me</a>
+        <a href="https://example.com/gallery" class="nav-button" target="_blank">Gallery</a>
+        <a href="https://linktr.ee/naimxbz" class="nav-button" target="_blank">Contact</a>
+    </div>
+    
+
+    <div class="timeline-container">
+        <div class="timeline-progress"></div>
+        <div class="timeline-handle">
+            <div class="timeline-date">The Beginning</div>
+        </div>
+        <div class="timeline-marker" style="left: 15%"></div>
+        <div class="timeline-marker" style="left: 30%"></div>
+        <div class="timeline-marker" style="left: 45%"></div>
+        <div class="timeline-marker" style="left: 60%"></div>
+        <div class="timeline-marker" style="left: 80%"></div>
+        <div class="timeline-marker" style="left: 95%"></div>
+    </div>
+
+    <div id="music-control">
+        <i class="fas fa-volume-up"></i>
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="" type="audio/mpeg">
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Handle background music
+            const music = document.getElementById('background-music');
+            const musicControl = document.getElementById('music-control');
+            const icon = musicControl.querySelector('i');
+            
+            // Replace with your actual music file
+            // For now, we'll keep it muted by default
+            music.volume = 0.3;
+            music.muted = true;
+            
+            musicControl.addEventListener('click', () => {
+                if (music.muted) {
+                    music.muted = false;
+                    music.play();
+                    icon.className = 'fas fa-volume-up';
+                } else {
+                    music.muted = true;
+                    icon.className = 'fas fa-volume-mute';
+                }
+            });
+
+            // Enter button effect and action
+            const enterButton = document.querySelector('.enter-button');
+            enterButton.addEventListener('click', () => {
+                document.body.style.opacity = 0;
+                setTimeout(() => {
+                    // Redirect to main story page
+                    window.location.href = 'story.html';
+                    // For demo, we'll just show an alert
+                    alert('This would navigate to your main story page!');
+                    document.body.style.opacity = 1;
+                }, 1000);
+            });
+
+            // Floating hearts animation
+            createFloatingHearts();
+            
+            // Create bubbles for additional effect
+            createBubbles();
+            
+            // Timeline interactivity
+            const timeline = document.querySelector('.timeline-container');
+            const progress = document.querySelector('.timeline-progress');
+            const handle = document.querySelector('.timeline-handle');
+            
+            timeline.addEventListener('mousemove', (e) => {
+                if (e.buttons === 1) {
+                    updateTimeline(e);
+                }
+            });
+            
+            timeline.addEventListener('mousedown', (e) => {
+                updateTimeline(e);
+            });
+            
+            function updateTimeline(e) {
+                const rect = timeline.getBoundingClientRect();
+                let x = e.clientX - rect.left;
+                
+                // Constrain to timeline width
+                if (x < 0) x = 0;
+                if (x > rect.width) x = rect.width;
+                
+                const percent = x / rect.width * 100;
+                progress.style.width = `${percent}%`;
+                handle.style.left = `${percent}%`;
+                
+                // Update the date text based on position
+                updateTimelineDate(percent);
+            }
+            
+            function updateTimelineDate(percent) {
+                const dateLabel = document.querySelector('.timeline-date');
+                let text = 'The Beginning';
+                
+                if (percent < 10) text = 'The Beginning';
+                else if (percent < 25) text = 'First Date';
+                else if (percent < 40) text = 'Falling in Love';
+                else if (percent < 55) text = 'Adventures Together';
+                else if (percent < 70) text = 'Growing Closer';
+                else if (percent < 85) text = 'Special Moments';
+                else text = 'Today & Beyond';
+                
+                dateLabel.textContent = text;
+                
+                // Change background image and effects based on timeline position
+                const background = document.getElementById('background');
+                background.style.filter = `brightness(${0.7 + percent/300}) saturate(${1 + percent/200})`;
+                
+                // Change overlay color based on timeline position
+                const overlay = document.getElementById('overlay');
+                const hue = 270 + (percent / 100) * 60; // Purple to pink range
+                overlay.style.background = `linear-gradient(135deg, 
+                    hsla(${hue}, 100%, 25%, 0.5), 
+                    hsla(${hue-20}, 80%, 30%, 0.5), 
+                    hsla(${hue-40}, 70%, 35%, 0.5))`;
+            }
+            
+            // Add click events for nav buttons
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    alert(`You clicked on the ${button.textContent} section!`);
+                });
+            });
+        });
+
+        // Create floating hearts with gradients
+        function createFloatingHearts() {
+            const container = document.getElementById('particles-container');
+            const colors = [
+                'linear-gradient(45deg, #ff6b6b, #e83e8c)', 
+                'linear-gradient(45deg, #e83e8c, #6610f2)',
+                'linear-gradient(45deg, #ff8fa3, #ff6b6b)',
+                'linear-gradient(45deg, #ff3366, #ff6b6b)',
+                'linear-gradient(45deg, #ff6b6b, #ff8fa3, #e83e8c)'
+            ];
+            
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.innerHTML = '❤';
+                    heart.style.left = `${Math.random() * 100}%`;
+                    heart.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    heart.style.WebkitBackgroundClip = 'text';
+                    heart.style.backgroundClip = 'text';
+                    heart.style.color = 'transparent';
+                    heart.style.fontSize = `${Math.random() * 25 + 15}px`;
+                    heart.style.animationDuration = `${Math.random() * 10 + 15}s`;
+                    heart.style.animationDelay = `${Math.random() * 5}s`;
+                    
+                    container.appendChild(heart);
+                    
+                    // Remove heart after animation completes
+                    setTimeout(() => {
+                        heart.remove();
+                        // Create a new heart to replace it
+                        createSingleHeart();
+                    }, 25000);
+                }, i * 400);
+            }
+        }
+
+        function createSingleHeart() {
+            const container = document.getElementById('particles-container');
+            const colors = [
+                'linear-gradient(45deg, #ff6b6b, #e83e8c)', 
+                'linear-gradient(45deg, #e83e8c, #6610f2)',
+                'linear-gradient(45deg, #ff8fa3, #ff6b6b)',
+                'linear-gradient(45deg, #ff3366, #ff6b6b)',
+                'linear-gradient(45deg, #ff6b6b, #ff8fa3, #e83e8c)'
+            ];
+            
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤';
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.background = colors[Math.floor(Math.random() * colors.length)];
+            heart.style.WebkitBackgroundClip = 'text';
+            heart.style.backgroundClip = 'text';
+            heart.style.color = 'transparent';
+            heart.style.fontSize = `${Math.random() * 25 + 15}px`;
+            heart.style.animationDuration = `${Math.random() * 10 + 15}s`;
+            
+            container.appendChild(heart);
+            
+            // Remove heart after animation completes
+            setTimeout(() => {
+                heart.remove();
+                createSingleHeart();
+            }, 25000);
+        }
+        
+        // Create floating bubbles for additional visual effect
+        function createBubbles() {
+            const container = document.getElementById('particles-container');
+            
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const bubble = document.createElement('div');
+                    bubble.classList.add('bubble');
+                    
+                    const size = Math.random() * 60 + 20;
+                    bubble.style.width = `${size}px`;
+                    bubble.style.height = `${size}px`;
+                    bubble.style.left = `${Math.random() * 100}%`;
+                    bubble.style.opacity = Math.random() * 0.3;
+                    bubble.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                    bubble.style.animationDelay = `${Math.random() * 5}s`;
+                    
+                    container.appendChild(bubble);
+                    
+                    // Remove bubble after animation completes
+                    setTimeout(() => {
+                        bubble.remove();
+                        // Create a new bubble to replace it
+                        createSingleBubble();
+                    }, 30000);
+                }, i * 800);
+            }
+        }
+        
+        function createSingleBubble() {
+            const container = document.getElementById('particles-container');
+            
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            
+            const size = Math.random() * 60 + 20;
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            bubble.style.left = `${Math.random() * 100}%`;
+            bubble.style.opacity = Math.random() * 0.3;
+            bubble.style.animationDuration = `${Math.random() * 20 + 10}s`;
+            
+            container.appendChild(bubble);
+            
+            // Remove bubble after animation completes
+            setTimeout(() => {
+                bubble.remove();
+                createSingleBubble();
+            }, 30000);
+        }
+    </script>
+</body>
+</html>

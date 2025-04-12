@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anniversary Love Letter</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #ff9966, #ff5e62, #ff417d, #ff0844);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .background-decorator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .circle-decorator {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            z-index: -1;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            top: -50px;
+            left: -50px;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .circle-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -100px;
+            right: -100px;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+        
+        .circle-3 {
+            width: 200px;
+            height: 200px;
+            top: 30%;
+            right: 10%;
+            animation: float 18s ease-in-out infinite 2s;
+        }
+        
+        .circle-4 {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 5%;
+            animation: float 22s ease-in-out infinite 1s;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 1.2s ease;
+            position: relative;
+        }
+        
+        .header-inner {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 5rem;
+            background: linear-gradient(45deg, #ffdf00, #ffd700, #fff6a6, #ffdf00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0px 3px 5px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: #fff;
+            opacity: 0.95;
+            font-weight: 400;
+            text-shadow: 0px 2px 3px rgba(0,0,0,0.2);
+        }
+        
+        .letter-container {
+            margin: 0 auto 60px;
+            animation: fadeIn 1.5s ease;
+            position: relative;
+            padding: 50px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.5);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            transform: perspective(1000px) rotateX(2deg);
+        }
+        
+        .letter-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 15px;
+            background: linear-gradient(90deg, #ffdf00, #ffd700, #fff6a6, #ffdf00);
+            background-size: 200% 200%;
+            animation: shimmer 3s linear infinite;
+            z-index: 2;
+        }
+        
+        @keyframes shimmer {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+        
+        .letter-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 50m-40 0a40 40 0 1 0 80 0 40 40 0 1 0-80 0' fill='none' stroke='%23f0d9c9' stroke-width='0.5'/%3E%3C/svg%3E");
+            background-size: 300px 300px;
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        .anniversary-badge {
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #ffdf00, #ffd700);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+            transform: rotate(15deg);
+            z-index: 10;
+            border: 5px solid rgba(255, 255, 255, 0.8);
+            animation: pulse 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: rotate(15deg) scale(1);
+                box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+            }
+            50% {
+                transform: rotate(15deg) scale(1.05);
+                box-shadow: 0 12px 30px rgba(255, 215, 0, 0.8);
+            }
+            100% {
+                transform: rotate(15deg) scale(1);
+                box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+            }
+        }
+        
+        .anniversary-badge-text {
+            font-family: 'Great Vibes', cursive;
+            text-align: center;
+            color: #8b4513;
+            font-size: 1.3rem;
+            line-height: 1.2;
+            padding: 10px;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+        }
+        
+        .letter {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            line-height: 1.8;
+            color: #5d4037;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .letter p {
+            margin-bottom: 22px;
+            position: relative;
+        }
+        
+        .letter p:first-of-type {
+            font-size: 1.8rem;
+            color: #8b4513;
+            font-weight: 700;
+        }
+        
+        .letter-date {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: #8d6e63;
+            font-style: italic;
+            text-align: right;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+        
+        .letter-signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #8b4513, #c19a6b, #e2b66b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: right;
+            margin-top: 30px;
+            transform: rotate(-5deg);
+            text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
+        }
+        
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart {
+            position: absolute;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.2));
+        }
+        
+        .heart:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            font-size: 1.5rem;
+            animation-delay: 0s;
+            color: #ff5e62;
+        }
+        
+        .heart:nth-child(2) {
+            top: 70%;
+            left: 20%;
+            font-size: 1.8rem;
+            animation-delay: 1s;
+            color: #ff417d;
+        }
+        
+        .heart:nth-child(3) {
+            top: 30%;
+            right: 15%;
+            font-size: 2rem;
+            animation-delay: 2s;
+            color: #ff0844;
+        }
+        
+        .heart:nth-child(4) {
+            top: 80%;
+            right: 10%;
+            font-size: 1.6rem;
+            animation-delay: 3s;
+            color: #ff9966;
+        }
+        
+        .heart:nth-child(5) {
+            top: 10%;
+            right: 30%;
+            font-size: 1.9rem;
+            animation-delay: 4s;
+            color: #ff5e62;
+        }
+        
+        .letter-decorations {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .decoration {
+            position: absolute;
+            opacity: 0.15;
+            z-index: 1;
+        }
+        
+        .flower-1 {
+            top: 20px;
+            left: 20px;
+            font-size: 2rem;
+            transform: rotate(-15deg);
+        }
+        
+        .flower-2 {
+            bottom: 30px;
+            right: 25px;
+            font-size: 2.2rem;
+            transform: rotate(10deg);
+        }
+        
+        .flower-3 {
+            top: 40%;
+            right: 25px;
+            font-size: 1.8rem;
+            transform: rotate(5deg);
+        }
+        
+        .rings {
+            bottom: 40px;
+            left: 30px;
+            font-size: 2rem;
+            transform: rotate(-10deg);
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) perspective(1000px) rotateX(2deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) perspective(1000px) rotateX(2deg);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .ribbon {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        .ribbon-content {
+            position: absolute;
+            display: block;
+            width: 225px;
+            padding: 15px 0;
+            background: linear-gradient(135deg, #ff417d, #ff0844);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            color: white;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+            text-align: center;
+            font-weight: bold;
+            left: -50px;
+            top: 35px;
+            transform: rotate(-45deg);
+        }
+        
+        .sparkles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .sparkle {
+            position: absolute;
+            background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15 0 L16.5 13.5 L30 15 L16.5 16.5 L15 30 L13.5 16.5 L0 15 L13.5 13.5 Z' fill='%23ffdf00'/%3E%3C/svg%3E");
+            background-size: contain;
+            width: 15px;
+            height: 15px;
+            animation: twinkle 4s ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .confetti-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-decorator">
+        <div class="circle-decorator circle-1"></div>
+        <div class="circle-decorator circle-2"></div>
+        <div class="circle-decorator circle-3"></div>
+        <div class="circle-decorator circle-4"></div>
+    </div>
+    
+    <div class="confetti-container"></div>
+    
+    <div class="container">
+        <header>
+            <div class="header-inner">
+                <h1>Five Wonderful Years</h1>
+                <p class="subtitle">Celebrating Our Journey of Love & Dreams</p>
+            </div>
+        </header>
+        
+        <div class="letter-container">
+            <div class="ribbon">
+                <span class="ribbon-content">OUR ANNIVERSARY</span>
+            </div>
+            
+            <div class="anniversary-badge">
+                <div class="anniversary-badge-text">Five Years<br>of Magic</div>
+            </div>
+            
+            <div class="hearts">
+                <div class="heart">❤️</div>
+                <div class="heart">❤️</div>
+                <div class="heart">❤️</div>
+                <div class="heart">❤️</div>
+                <div class="heart">❤️</div>
+            </div>
+            
+            <div class="letter-decorations">
+                <div class="decoration flower-1">🌹</div>
+                <div class="decoration flower-2">🌹</div>
+                <div class="decoration flower-3">💐</div>
+                <div class="decoration rings">💍</div>
+            </div>
+            
+            <div class="sparkles">
+                <div class="sparkle" style="top: 10%; left: 15%; animation-delay: 0s;"></div>
+                <div class="sparkle" style="top: 60%; left: 85%; animation-delay: 1s;"></div>
+                <div class="sparkle" style="top: 30%; left: 75%; animation-delay: 2s;"></div>
+                <div class="sparkle" style="top: 80%; left: 20%; animation-delay: 3s;"></div>
+                <div class="sparkle" style="top: 40%; left: 40%; animation-delay: 1.5s;"></div>
+                <div class="sparkle" style="top: 70%; left: 60%; animation-delay: 2.5s;"></div>
+            </div>
+            
+            <div class="letter">
+                <p>My Beloved,</p>
+                
+                <p>Five years ago today, we promised to walk through life together, hand in hand. As the morning sunlight streams through our window and casts its golden glow upon your face, I'm overwhelmed with gratitude and joy for every precious moment of our journey.</p>
+                
+                <p>Do you remember our first anniversary? That candlelit dinner where I nervously attempted to recreate our first date meal, and how we ended up dancing barefoot in the kitchen until midnight? Each year since has woven new threads into the tapestry of our love story—a masterpiece that grows more vibrant and beautiful with every passing day.</p>
+                
+                <p>Your love has been my sanctuary and my strength. In your embrace, I've discovered parts of myself I never knew existed. Because of you, I understand what it truly means to love completely and unconditionally. You've shown me that real love lives in both the breathtaking moments and the quiet, ordinary ones that fill our days with warmth and meaning.</p>
+                
+                <p>As we celebrate five extraordinary years together, I make this promise anew: my heart is yours, forever and completely. I will cherish every smile, every tear, every triumph, and every challenge. I will walk beside you through sunshine and storms. I will be your biggest supporter, your most trusted confidant, and your most devoted admirer. And I will remind you, with every breath I take, just how deeply and completely you are loved.</p>
+                
+                <p>Happy fifth anniversary, my love. Here's to the beautiful memories we've created and to the countless more awaiting us on this magnificent journey together.</p>
+            </div>
+            <div class="letter-signature">Forever Yours</div>
+            <div class="letter-date">April 10, 2025 — Our Fifth Anniversary</div>
+        </div>
+    </div>
+    
+    <script>
+        // Create confetti
+        function createConfetti() {
+            const confettiContainer = document.querySelector('.confetti-container');
+            const confettiCount = 60;
+            const colors = ['#ff9966', '#ff5e62', '#ff417d', '#ff0844', '#ffdf00', '#ffd700', '#fff', '#ffcb8d'];
+            const shapes = ['circle', 'square', 'triangle'];
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                
+                // Random position
+                const left = Math.random() * 100;
+                confetti.style.position = 'absolute';
+                confetti.style.left = `${left}%`;
+                confetti.style.top = '-20px';
+                
+                // Random size
+                const size = Math.random() * 10 + 5;
+                
+                // Random color
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Random shape
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                if (shape === 'circle') {
+                    confetti.style.width = `${size}px`;
+                    confetti.style.height = `${size}px`;
+                    confetti.style.backgroundColor = color;
+                    confetti.style.borderRadius = '50%';
+                } else if (shape === 'square') {
+                    confetti.style.width = `${size}px`;
+                    confetti.style.height = `${size}px`;
+                    confetti.style.backgroundColor = color;
+                    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                } else if (shape === 'triangle') {
+                    confetti.style.width = '0';
+                    confetti.style.height = '0';
+                    confetti.style.borderLeft = `${size/2}px solid transparent`;
+                    confetti.style.borderRight = `${size/2}px solid transparent`;
+                    confetti.style.borderBottom = `${size}px solid ${color}`;
+                    confetti.style.backgroundColor = 'transparent';
+                }
+                
+                // Animation
+                const duration = Math.random() * 3 + 3;
+                const delay = Math.random() * 5;
+                
+                confetti.style.animation = `fall ${duration}s ease-in-out ${delay}s infinite`;
+                confetti.style.opacity = '0.8';
+                
+                // Add keyframes for falling animation
+                const styleSheet = document.styleSheets[0];
+                if (!document.querySelector('style[data-confetti="true"]')) {
+                    const styleEl = document.createElement('style');
+                    styleEl.setAttribute('data-confetti', 'true');
+                    styleEl.textContent = `
+                        @keyframes fall {
+                            0% {
+                                transform: translateY(-10px) rotate(0deg);
+                                opacity: 0;
+                            }
+                            10% {
+                                opacity: 1;
+                            }
+                            90% {
+                                opacity: 1;
+                            }
+                            100% {
+                                transform: translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg);
+                                opacity: 0;
+                            }
+                        }
+                    `;
+                    document.head.appendChild(styleEl);
+                }
+                
+                confettiContainer.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, (duration + delay) * 1000);
+            }
+        }
+        
+        // Create sparkle effect
+        function createSparkles() {
+            const sparklesContainer = document.querySelector('.sparkles');
+            const sparkleCount = 10;
+            
+            for (let i = 0; i < sparkleCount; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.style.top = `${Math.random() * 100}%`;
+                sparkle.style.left = `${Math.random() * 100}%`;
+                sparkle.style.animationDelay = `${Math.random() * 4}s`;
+                sparkle.style.width = `${Math.random() * 10 + 8}px`;
+                sparkle.style.height = sparkle.style.width;
+                
+                sparklesContainer.appendChild(sparkle);
+            }
+        }
+        
+        // Add confetti periodically
+        createConfetti();
+        setInterval(createConfetti, 5000);
+        createSparkles();
+        
+        // Animation on scroll
+        function animateOnScroll() {
+            const letterContainer = document.querySelector('.letter-container');
+            const rect = letterContainer.getBoundingClientRect();
+            
+            if (rect.top <= window.innerHeight * 0.8) {
+                letterContainer.classList.add('visible');
+            }
+        }
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>
